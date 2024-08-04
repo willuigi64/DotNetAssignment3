@@ -11,5 +11,6 @@ namespace DotNetAssignment3.Data
         {
         }
         public DbSet<DotNetAssignment3.Models.Post> Post { get; set; } = default!;
+        public DbSet<DotNetAssignment3.Models.Response> Response { get; set; } = default!;
     }
 }

@@ -11,27 +11,23 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DotNetAssignment3.Controllers
 {
-    //[Authorize]
-    //This, paired with allowanonymous on the details controller should allow anons to view the details, but it's not working. not sure the issue.
-    //commented out for said reason^^
-    public class PostsController : Controller
+    public class ResponsesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public PostsController(ApplicationDbContext context)
+        public ResponsesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Posts
+        // GET: Responses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Post.ToListAsync());
+            var applicationDbContext = _context.Response.Include(r => r.Post);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        //[AllowAnonymous]
-        //commented out for reason stated on line 16
-        // GET: Posts/Details/5
+        // GET: Responses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,37 +35,42 @@ namespace DotNetAssignment3.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Post
-                .FirstOrDefaultAsync(m => m.PostId == id);
-            if (post == null)
+            var response = await _context.Response
+                .Include(r => r.Post)
+                .FirstOrDefaultAsync(m => m.ResponseId == id);
+            if (response == null)
             {
                 return NotFound();
             }
 
-            return View(post);
+            return View(response);
         }
-        // GET: Posts/Create
+
+        // GET: Responses/Create
         public IActionResult Create()
         {
+            ViewData["PostId"] = new SelectList(_context.Post, "PostId", "Title");
             return View();
         }
 
-        // POST: Posts/Create
+        // POST: Responses/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostId,Title,Image,Body,LostFoundDate")] Post post)
+        public async Task<IActionResult> Create([Bind("ResponseId,PostId,Content,Created")] Response response)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(post);
+                _context.Add(response);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(post);
+            ViewData["PostId"] = new SelectList(_context.Post, "PostId", "Title", response.PostId);
+            return View(response);
         }
-        // GET: Posts/Edit/5
+
+        // GET: Responses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,22 +78,23 @@ namespace DotNetAssignment3.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Post.FindAsync(id);
-            if (post == null)
+            var response = await _context.Response.FindAsync(id);
+            if (response == null)
             {
                 return NotFound();
             }
-            return View(post);
+            ViewData["PostId"] = new SelectList(_context.Post, "PostId", "Title", response.PostId);
+            return View(response);
         }
 
-        // POST: Posts/Edit/5
+        // POST: Responses/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PostId,Title,Image,Body,LostFoundDate")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("ResponseId,PostId,Content,Created")] Response response)
         {
-            if (id != post.PostId)
+            if (id != response.ResponseId)
             {
                 return NotFound();
             }
@@ -101,12 +103,12 @@ namespace DotNetAssignment3.Controllers
             {
                 try
                 {
-                    _context.Update(post);
+                    _context.Update(response);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PostExists(post.PostId))
+                    if (!ResponseExists(response.ResponseId))
                     {
                         return NotFound();
                     }
@@ -117,9 +119,11 @@ namespace DotNetAssignment3.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(post);
+            ViewData["PostId"] = new SelectList(_context.Post, "PostId", "Title", response.PostId);
+            return View(response);
         }
-        // GET: Posts/Delete/5
+
+        // GET: Responses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -127,34 +131,35 @@ namespace DotNetAssignment3.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Post
-                .FirstOrDefaultAsync(m => m.PostId == id);
-            if (post == null)
+            var response = await _context.Response
+                .Include(r => r.Post)
+                .FirstOrDefaultAsync(m => m.ResponseId == id);
+            if (response == null)
             {
                 return NotFound();
             }
 
-            return View(post);
+            return View(response);
         }
 
-        // POST: Posts/Delete/5
+        // POST: Responses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var post = await _context.Post.FindAsync(id);
-            if (post != null)
+            var response = await _context.Response.FindAsync(id);
+            if (response != null)
             {
-                _context.Post.Remove(post);
+                _context.Response.Remove(response);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PostExists(int id)
+        private bool ResponseExists(int id)
         {
-            return _context.Post.Any(e => e.PostId == id);
+            return _context.Response.Any(e => e.ResponseId == id);
         }
     }
 }

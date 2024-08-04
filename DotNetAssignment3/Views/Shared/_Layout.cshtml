@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DotNetAssignment3</title>
+    <title>@ViewData["Title"] - Lost and Found Portal</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/DotNetAssignment3.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LostAndFoundPortal.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DotNetAssignment3</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Lost and Found Portal</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,6 +24,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Index">Posts</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Responses" asp-action="Index">Responses</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -39,7 +45,10 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - DotNetAssignment3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            Mohammed Rishad Nazeer Hussain - #200562330, Gibin Chacko - #2005625671, William Mackie - #200561034
+            <br />Server-Side Scripting-ASP.NET COMP2084
+            <br />
+            &copy; @DateTime.Now.Year - Lost and Found Portal - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> -- <a href="https://github.com/willuigi64/DotNetAssignment3">Private Github Source</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
