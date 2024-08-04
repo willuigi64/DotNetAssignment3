@@ -10,7 +10,7 @@ namespace DotNetAssignment3.Data
             : base(options)
         {
         }
-        public DbSet<DotNetAssignment3.Models.Post> Post { get; set; } = default!;
-        public DbSet<DotNetAssignment3.Models.Response> Response { get; set; } = default!;
+        public DbSet<Post> Post { get; set; } = default!;
+        public DbSet<Response> Response { get; set; } = default!;
     }
 }
