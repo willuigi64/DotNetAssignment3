@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DotNetAssignment3.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240804033558_init")]
-    partial class init
+    [Migration("20240804040350_LostFoundMig1")]
+    partial class LostFoundMig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

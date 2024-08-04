@@ -19,6 +19,6 @@ namespace DotNetAssignment3.Models
 
         // parent reference to Posts ; many-comments => one-post
         [Required]
-        public Post? Post { get; set; }
+        public required Post Post { get; set; }
     }
 }
