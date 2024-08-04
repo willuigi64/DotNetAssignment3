@@ -1,4 +1,4 @@
 # Lost and Found Portal
 
 
-Web App: [Lost and Found Portal](lostandfoundportal-group7.azurewebsites.net)
+Web App: [Lost and Found Portal](https://lostandfoundportal-group7.azurewebsites.net)
